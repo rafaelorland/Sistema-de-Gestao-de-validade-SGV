@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Login - SGV</title>
+        <link rel="shortcut icon" type="imagex/png"
+            href="{% static 'img/logo.png' %}" />
+        <link rel="stylesheet" href="{% static 'css/login/style.css' %}" />
+        <style>
+        @keyframes fadeout {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        .alert-box {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            background-color: #f70000;
+            color: #ffffff;
+            border-color: #05450b;
+            animation: fadeout 2s 2s forwards;
+        }
+    </style>
+    </head>
+    <body>
+
+        <div class="page">
+
+            <form method="POST" class="formLogin">
+                {% csrf_token %}
+                <div class="imgcenter">
+                    <img src="{% static 'img/logo.png' %}" alt width="100" />
+                </div>
+                <h1>Sistema de Gestão de Validade(SGV)</h1>
+                <p>Digite os seus dados de acesso no campo abaixo.</p>
+
+                <label for="username">Usuário</label>
+                <input type="text" name="username"
+                    placeholder="Digite seu nome de usuário" required
+                    autofocus="true" />
+                <label for="password">Senha</label>
+                <input type="password" name="password"
+                    placeholder="Digite a sua senha" required />
+                {% if messages %}
+                <div class="alert-box">
+                    {% for message in messages %}
+
+                    {{ message }}
+
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <input type="submit" value="Acessar" class="btn" />
+            </form>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,72 @@
+{% extends 'components/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="home-section">
+    <div class="home-content">
+        <i class="icon"></i>
+        <div class="text">
+            Sistema de Gestão de Validade (SGV)
+        </div>
+        <img src="{% static 'img/logo.png' %}" alt="Logo" />
+    </div>
+    <div class="card">
+        <div class="card-header">
+            Estatísticas do Sistema de Gestão de Validade (SGV)
+        </div>
+        <div class="card-body">
+            <div class="card-row">
+                <div class="card-item">
+                    <div class="card-color">
+                        <h4 class="alert-heading">Clientes</h4>
+                        <p class="alert-content">{{ total_clientes }}</p>
+                    </div>
+                </div>
+                <div class="card-item">
+                    <div class="card-color">
+                        <h4 class="alert-heading">Veículos</h4>
+                        <p class="alert-content">{{ total_veiculos }}</p>
+                    </div>
+                </div>
+                <div class="card-item">
+                    <div class="card-color">
+                        <h4 class="alert-heading">Instrumentos</h4>
+                        <p class="alert-content">{{ total_instrumentos }}</p>
+                    </div>
+                </div>
+                <div class="card-item">
+                    <div class="card-color">
+                        <h4 class="alert-heading">Certificados</h4>
+                        <p class="alert-content">{{ total_certificados }}</p>
+                    </div>
+                </div>
+                <div class="card-item">
+                    <div class="card-color">
+                        <h4 class="alert-heading">Próximos da Validade</h4>
+                        <p class="alert-content">Menos de 1 mês: {{ proximos_da_validade_1_mes }}</p>
+                        <p class="alert-content">Menos de 1 semana: {{ proximos_da_validade_1_semana }}</p>
+                    </div>
+                </div>
+                <div class="card-item">
+                    <div class="card-color">
+                        <h4 class="alert-heading">Certificados Vencidos</h4>
+                        <p class="alert-content">{{ vencidos }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main-content">
+    <div class="one">
+        {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
+        {% else %}
+        <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock content %}

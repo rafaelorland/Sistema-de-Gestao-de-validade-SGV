@@ -1,0 +1,316 @@
+/* GERAL */
+.url-location {
+    background-color: #f5f5f5;
+    margin: 0 10px 0 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 0 10px;
+}
+
+.url-location a {
+    color: rgb(81, 81, 81);
+    text-decoration-line: none;
+}
+
+.url-location a:hover {
+    color: #00ab14;
+}
+
+.card {
+    background-color: #f5f5f5;
+    margin: 20px 10px 0 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* card */
+.card-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-max-width {
+    max-width: 1000px;
+    margin-bottom: 100px;
+}
+
+.card h6 {
+    margin: 0 10px 10px 0;
+}
+
+.card a {
+    color: #00ab14;
+    text-decoration-line: none;
+}
+
+.card .card-body p {
+    color: black;
+}
+
+.card-hover:hover {
+    background-color: #d0d0d0;
+    color: #00ab14;
+    transition: .5s;
+}
+
+/* formulario */
+
+.formulario {
+
+    max-width: 850px;
+    text-align: center;
+    margin: 20px auto;
+
+}
+
+.formulario input,
+form textarea {
+
+    border: 0;
+    outline: 0;
+    padding: 0.8em;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+    display: block;
+    width: 100%;
+    margin-top: 16px;
+
+    font-size: 16px;
+    color: #424242;
+    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    resize: none;
+}
+
+.formulario input:focus,
+.formulario textarea:focus {
+
+    color: #00ab14;
+    -moz-box-shadow: 0 0px 4px #00ab14 !important;
+    -webkit-box-shadow: 0 0px 4px #00ab14 !important;
+    box-shadow: 0 0 4px #00ab14 !important;
+
+}
+
+.formulario .btn-submit {
+
+    color: #fff;
+    background: #00ab14;
+    cursor: pointer;
+    transition: 0.5s;
+
+}
+
+.formulario .btn-submit:hover {
+
+    background-color: #ff8000;
+    -moz-box-shadow: 0 1px 1px 1px rgba(170, 170, 170, 0.6);
+    -webkit-box-shadow: 0 1px 1px 1px rgba(170, 170, 170, 0.6);
+    box-shadow: 0 1px 1px 1px rgba(170, 170, 170, 0.6);
+
+}
+
+.formulario textarea {
+
+    height: 174px;
+
+}
+
+.label-margin {
+    height: 40px;
+    margin-top: 20px;
+}
+
+label {
+    color: #00ab14;
+    font-size: 16px;
+
+}
+
+.metade {
+
+    float: left;
+    width: 48%;
+    margin-bottom: 1em;
+
+}
+
+.right {
+    width: 50%;
+}
+
+.left {
+    margin-right: 2%;
+}
+
+/* Input Button wiith Dropdowns */
+
+/* Container do grupo de entrada */
+.input-group {
+    display: flex;
+    width: 100%;
+    max-width: 400px;
+    margin: 50px auto;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+/* Botões e entrada */
+.input-group-prepend .btn {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+    transition: background-color 0.3s;
+}
+
+/* Campo de entrada */
+.form-control {
+    flex-grow: 1;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 0 4px 4px 0;
+    outline: none;
+    font-size: 16px;
+}
+
+/* Estilização do dropdown */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-toggle {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-left: none;
+    padding: 10px 10px;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s;
+    border-radius: 0 4px 4px 0;
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.dropdown-menu a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f1f1f1;
+}
+
+/* Divider */
+.dropdown-divider {
+    height: 1px;
+    margin: 8px 0;
+    overflow: hidden;
+    background-color: #e9ecef;
+}
+
+/* Mostrar dropdown ao clicar no botão */
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+/* Mudança de cor ao passar o mouse sobre os botões */
+.btn:hover,
+.dropdown-toggle:hover {
+    background-color: #e0e0e0;
+}
+
+/* Painel de busca */
+
+.input-group {
+    margin: 0 10px 30px 10px;
+    max-width: calc(100% - 20px);
+    border-top-left-radius: 0;
+}
+
+.card-consulta {
+    min-height: 1000px;
+}
+
+.btn-style {
+    background: #00ab14;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    border-bottom: #00ab14;
+    transition: background-color 0.3s, transform 0.3s;
+    z-index: 1;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.btn-style:hover {
+    background-color: #00680c;
+}
+
+.btn-consultar {
+    background: #00ab14;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    margin: 0 9px;
+    padding: 15px;
+    z-index: 2;
+    transition: background-color 0.3s, transform 0.3s;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.btn-consultar:hover {
+    background-color: #00680c;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-link-style {
+    z-index: 3;
+    color: black;
+    background-color: #d2d2d2;
+    padding: 0 10px 0 10px;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.list-cliente {
+    background-color: #e9ecef;
+    margin: 5px 10px 5px 10px;
+    border: 1px solid #4d4d4d;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.show_dados {
+    margin-left: 100px;
+    font-size: 20px;
+}

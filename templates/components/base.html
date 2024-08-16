@@ -1,0 +1,265 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt">
+    <head>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{ titulo_page }}</title>
+        <link rel="shortcut icon" type="imagex/png"
+            href="{% static 'img/logo.png' %}">
+        <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
+            rel='stylesheet'>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+        <link href="https://fonts.googleapis.com/css?family=Poppins"
+            rel='stylesheet'>
+
+        <style>
+            /* Animação para fadeout */
+@keyframes fadeout {
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+/* Estilo base para a caixa de alerta */
+.alert-box {
+    position: fixed;
+    top: 10px;
+    left: 100px;
+    z-index: 1000;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #fff;
+    animation: fadeout 2s 6s forwards;
+}
+
+/* Estilo específico para mensagens de sucesso */
+.alert-success {
+    background-color: #28a745;
+    border-color: #1e7e34;
+}
+
+/* Estilo específico para mensagens de erro */
+.alert-error {
+    background-color: #dc3545;
+    border-color: #c82333;
+}
+
+/* Estilo específico para mensagens de informação */
+.alert-info {
+    background-color: #17a2b8;
+    border-color: #117a8b;
+}
+
+/* Estilo específico para mensagens de aviso */
+.alert-warning {
+    background-color: #ffc107;
+    border-color: #d39e00;
+}
+
+/* Ajuste de posição para evitar sobreposição */
+.alert-box:nth-child(n+2) {
+    top: auto;
+    bottom: 10px;
+}</style>
+
+    </head>
+    <body>
+        {% if messages %}
+        {% for message in messages %}
+        <div
+            class="alert-box {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        <!--Inicio Sidebar-->
+        <div class="sidebar close">
+
+            <div class="logo-details">
+
+                <i class="bx bx-menu"></i>
+                <span class="logo_name"></span>
+
+            </div>
+
+            <ul class="nav-links">
+
+                <li>
+
+                    <a href="{% url 'home' %}">
+                        <i class='bx bx-grid-alt'></i>
+                        <span class="link_name">Início</span>
+                    </a>
+
+                    <ul class="sub-menu blank">
+                        <li><a class="link_name"
+                                href="{% url 'home'%}">Início</a></li>
+                    </ul>
+
+                </li>
+
+                <li>
+
+                    <div class="iocn-link">
+
+                        <a href="{% url 'painel_cliente'%}">
+                            <i class='bx bxs-user-account'></i>
+                            <span class="link_name">Gestão de cliente</span>
+                        </a>
+
+                        <i class='bx bxs-chevron-down arrow'></i>
+
+                    </div>
+
+                    <ul class="sub-menu">
+
+                        <li><a class="link_name" href="{% url 'painel_cliente'%}">Clientes</a></li>
+                        <li><a href="{% url 'adicionar_cliente' %}">Adicionar Cliente</a></li>
+                    </ul>
+                </li>
+                <li>
+
+                    <div class="iocn-link">
+
+                        <a href="{% url 'painel_veiculo' %}">
+                            <i class='bx bxs-truck'></i>
+                            <span class="link_name">Gestão de Veículo</span>
+                        </a>
+
+                        <i class='bx bxs-chevron-down arrow'></i>
+
+                    </div>
+
+                    <ul class="sub-menu">
+
+                        <li><a class="link_name" href="{% url 'painel_veiculo' %}">Veículo</a></li>
+                        <li><a href="{% url 'adicionar_veiculo' %}">Adicionar Veículo</a></li>
+                    </ul>
+                </li>
+                <li>
+
+                    <div class="iocn-link">
+
+                        <a href="{% url 'painel_instrumento' %}">
+                            <i class='bx bx-package' ></i>
+                            <span class="link_name">Gestão de Instrumento</span>
+                        </a>
+
+                        <i class='bx bxs-chevron-down arrow'></i>
+
+                    </div>
+
+                    <ul class="sub-menu">
+
+                        <li><a class="link_name" href="{% url 'painel_instrumento' %}">Instrumento</a></li>
+                        <li><a href="{% url 'adicionar_instrumento' %}">Adicionar Instrumento</a></li>
+                    </ul>
+                </li>
+                <li>
+
+                    <div class="iocn-link">
+
+                        <a href="{% url 'painel_certificado' %}">
+                            <i class='bx bx-certification' ></i>
+                            <span class="link_name">Gestão de Certificado</span>
+                        </a>
+
+                        <i class='bx bxs-chevron-down arrow'></i>
+
+                    </div>
+
+                    <ul class="sub-menu">
+
+                        <li><a class="link_name" href="{% url 'painel_certificado' %}">Certificado</a></li>
+                        <li><a href="#">Adicionar Certificado</a></li>
+                    </ul>
+                </li>
+
+                <li>
+
+                    <a href="#">
+                        <i class='bx bx-pie-chart-alt-2'></i>
+                        <span class="link_name">Relatórios</span>
+                    </a>
+                    <ul class="sub-menu blank">
+                        <li><a class="link_name" href="#">Relatórios de
+                                Validade</a></li>
+                    </ul>
+                </li>
+
+                {% if user.is_superuser %}
+                <li>
+
+                    <a href="#">
+                        <i class='bx bx-user-check'></i>
+                        <span class="link_name">Usuários e Permissões</span>
+                    </a>
+                    <ul class="sub-menu blank">
+                        <li><a class="link_name" href="#">Gestão de
+                                Usuários</a></li>
+                    </ul>
+                </li>
+                {% endif %}
+
+                <li>
+
+                    <a href="#">
+                        <i class='bx bx-cog'></i>
+                        <span class="link_name">Configurações</span>
+                    </a>
+
+                    <ul class="sub-menu blank">
+                        <li><a class="link_name" href="#">Configurações</a></li>
+                    </ul>
+                </li>
+                <li>
+
+                    <div class="profile-details">
+
+                        <div class="profile-content">
+                            <!--<img src="image/profile.jpg" alt="profileImg">-->
+                        </div>
+
+                        <div class="name-job">
+
+                            <div class="profile_name">Bem Vindo,
+                                {{user.username}}!</div>
+                            <div class="job">Lev Truckcenter</div>
+
+                        </div>
+
+                        <a href='{% url "logout" %}'><i class="bx bx-log-out">
+                            </i></a>
+
+                    </div>
+
+                </li>
+            </ul><!--Fecha ul-->
+
+        </div>
+        {% block content %}
+
+        {% endblock content %}
+    </body>
+    <script>
+  
+    let arrow = document.querySelectorAll(".arrow");
+    for (var i = 0; i < arrow.length; i++) {
+      arrow[i].addEventListener("click", (e)=>{
+     let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
+     arrowParent.classList.toggle("showMenu");
+      });
+    }
+    
+    let sidebar = document.querySelector(".sidebar");
+    let sidebarBtn = document.querySelector(".bx-menu");
+    console.log(sidebarBtn);
+    sidebarBtn.addEventListener("click", ()=>{
+      sidebar.classList.toggle("close");
+    });
+</script>
+</html>
