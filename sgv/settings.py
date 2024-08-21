@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.admin',
     'django.contrib.auth',
-    'core',
     'cliente',
     'veiculo',
     'instrumento',
@@ -52,6 +51,10 @@ INSTALLED_APPS = [
 # Configuração de agendamento de tarefas
 APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
 APSCHEDULER_RUN_NOW_TIMEOUT = 25
+APSCHEDULER_JOB_DEFAULTS = {
+    'max_instances': 1,
+    'misfire_grace_time': 300,
+}
 
 DJANGO_APPSCHEDULER = {
     'JOBSTORES': {
@@ -112,6 +115,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        'OPTIONS': {
+            'timeout': 20,
+        }
     }
 }
 

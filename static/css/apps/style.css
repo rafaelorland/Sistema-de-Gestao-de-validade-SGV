@@ -83,6 +83,7 @@ form textarea {
 
     font-size: 16px;
     color: #424242;
+    background-color: #eeeeee;
     -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
     -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
@@ -96,6 +97,7 @@ form textarea {
     -moz-box-shadow: 0 0px 4px #00ab14 !important;
     -webkit-box-shadow: 0 0px 4px #00ab14 !important;
     box-shadow: 0 0 4px #00ab14 !important;
+    
 
 }
 
@@ -249,6 +251,7 @@ label {
     margin: 0 10px 30px 10px;
     max-width: calc(100% - 20px);
     border-top-left-radius: 0;
+    background-color: #f0f0f0;
 }
 
 .card-consulta {

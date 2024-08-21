@@ -2,8 +2,11 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib import messages
 from certificado.models import Certificado
+from cliente.models import Cliente
 from instrumento.models import Instrumento
 from django.core.paginator import Paginator
+from django.utils import timezone
+from datetime import timedelta
 
 @login_required
 def adicionar_certificado(request):
@@ -39,8 +42,6 @@ def adicionar_certificado(request):
     else:
         instrumentos = Instrumento.objects.all()
         return render(request, 'adicionar_certificado.html', {'instrumentos': instrumentos})
-
-from django.utils.dateformat import DateFormat
 
 @login_required
 def editar_certificado(request, id):

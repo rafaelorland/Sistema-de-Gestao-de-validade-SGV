@@ -104,6 +104,7 @@
             <a href="{% url 'instrumento_id' instrumento.id %}">
                 <h5 class="mb-1">{{ instrumento.veiculo.cliente.nome }}</h5>
                 <p class="mb-1">ID: {{ instrumento.id }}</p>
+                <p class="mb-1">Veículo: {{ instrumento.veiculo.placa }} - {{ instrumento.veiculo.modelo }}</p>
                 <p class="mb-1">Tipo de Instrumento: {{ instrumento.tipo_instrumento.nome }}</p>
                 <p class="mb-1">Número de série: {{ instrumento.numero_serie }}</p>
             </a>

@@ -2,11 +2,15 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.urls import reverse_lazy
+from django.views import View
 from certificado.models import Certificado
 from cliente.models import Cliente
 from instrumento.models import Instrumento
 from veiculo.models import Veiculo
 from datetime import datetime, timedelta
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.forms import UserCreationForm
 
 @login_required
 def home(request):
@@ -38,12 +42,16 @@ def home(request):
         'total_veiculos': total_veiculos,
         'total_instrumentos': total_instrumentos,
         'total_certificados': total_certificados,
-        'proximos_da_validade_1_mes': proximos_da_validade_1_mes,
+        'proximos_da_validade_1_mes': int(proximos_da_validade_1_mes) - int(proximos_da_validade_1_semana),
         'proximos_da_validade_1_semana': proximos_da_validade_1_semana,
         'vencidos': vencidos,
     }
     
     return render(request, 'home.html', context)
+
+@login_required
+def painel_relatorio(request):
+    return render(request, 'painel_relatorio.html')
 
 def login_view(request):
     if request.user.is_authenticated:
@@ -73,3 +81,27 @@ def logout_view(request):
     logout(request)
     messages.success(request, 'Logout realizado com sucesso!')
     return redirect('login')
+
+class UserCreateView(LoginRequiredMixin, UserPassesTestMixin, View):
+    template_name = 'user_create.html'
+    login_url = 'login'
+    redirect_field_name = 'redirect_to'
+
+    def test_func(self):
+        return self.request.user.is_superuser  # Verifica se o usuário é superusuário (admin)
+
+    def handle_no_permission(self):
+        messages.error(self.request, 'Você não tem permissão para acessar esta página.')
+        return redirect('home')
+
+    def get(self, request):
+        form = UserCreationForm()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Usuário criado com sucesso!')
+            return redirect(reverse_lazy('login'))
+        return render(request, self.template_name, {'form': form})

@@ -1,0 +1,24 @@
+{% extends 'components/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="home-section">
+    <div class="home-content">
+        <i class="icon"></i>
+        <div class="text">
+            Painel de Relatórios
+        </div>
+        <img src="{% static 'img/logo.png' %}" alt="Logo" />
+    </div>
+    <div class="text-center">
+        <div class="col-sm-6">
+            <div class="card card-hover">
+                <div class="card-body">
+                    <a href="{% url 'relatorio_notificacoes' %}"
+                        class="btn"><h5>Relatório Notificações</h5></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

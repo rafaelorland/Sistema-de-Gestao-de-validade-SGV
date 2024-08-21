@@ -175,18 +175,18 @@
                     <ul class="sub-menu">
 
                         <li><a class="link_name" href="{% url 'painel_certificado' %}">Certificado</a></li>
-                        <li><a href="#">Adicionar Certificado</a></li>
+                        <li><a href="{% url 'adicionar_certificado' %}">Adicionar Certificado</a></li>
                     </ul>
                 </li>
 
                 <li>
 
-                    <a href="#">
+                    <a href="{% url 'painel_relatorio' %}">
                         <i class='bx bx-pie-chart-alt-2'></i>
                         <span class="link_name">Relatórios</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name" href="#">Relatórios de
+                        <li><a class="link_name" href="{% url 'painel_relatorio' %}">Relatórios de
                                 Validade</a></li>
                     </ul>
                 </li>

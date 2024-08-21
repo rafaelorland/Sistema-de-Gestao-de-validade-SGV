@@ -19,7 +19,8 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from sgv.views import login_view, home, logout_view
+from notificacao.views import gerar_pdf_notificacoes, relatorio_notificacoes
+from sgv.views import UserCreateView, login_view, home, logout_view, painel_relatorio
 
 urlpatterns = [
     path('adminSGV/', admin.site.urls),
@@ -28,8 +29,13 @@ urlpatterns = [
     path('veiculo/', include('veiculo.urls')),
     path('instrumento/', include('instrumento.urls')),
     path('certificado/', include('certificado.urls')),
+    path('notificacao/', include('notificacao.urls')),
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
+    path('signup/', UserCreateView.as_view(), name='signup'),
+    path('relatorio/notificacoes/', relatorio_notificacoes, name='relatorio_notificacoes'),
+    path('relatorio/pdf/', gerar_pdf_notificacoes, name='gerar_pdf_notificacoes'),
+    path('relatorio/', painel_relatorio, name='painel_relatorio')
 ]
 
 if settings.DEBUG:  # Somente servir arquivos de mídia no modo debug

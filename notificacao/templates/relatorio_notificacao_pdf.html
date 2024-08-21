@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Notificações</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        h1 {
+            margin: 0;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 5px;
+        }
+        select, input {
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+        .badge {
+            padding: 5px 10px;
+            border-radius: 4px;
+            color: #fff;
+        }
+        .badge.success {
+            background-color: #28a745;
+        }
+        .badge.warning {
+            background-color: #ffc107;
+        }
+        .badge.danger {
+            background-color: #dc3545;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+        .pagination li {
+            margin: 0 5px;
+        }
+        .pagination a, .pagination span {
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #007bff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            display: block;
+        }
+        .pagination a:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .pagination .active span {
+            background-color: #007bff;
+            color: #fff;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Relatório de Notificações</h1>
+        </header>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Certificado</th>
+                    <th>Cliente</th>
+                    <th>Canal</th>
+                    <th>Data de Envio</th>
+                    <th>Mensagem</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for notificacao in notificacoes %}
+                    <tr>
+                        <td>{{ notificacao.certificado.numero_certificado }}</td>
+                        <td>{{ notificacao.certificado.instrumento.veiculo.cliente.nome }}</td>
+                        <td>{{ notificacao.get_canal_display }}</td>
+                        <td>{{ notificacao.data_envio_notificacao.data_envio|date:"d/m/Y" }}</td>
+                        <td>{{ notificacao.mensagem|truncatechars:50 }}</td>
+                        <td>
+                            <span class="badge {% if notificacao.status == 'enviado' %}success{% elif notificacao.status == 'pendente' %}warning{% else %}danger{% endif %}">
+                                {{ notificacao.get_status_display }}
+                            </span>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="6" style="text-align: center;">Nenhuma notificação encontrada.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                    <li><a href="?{% if request.GET %}{{ request.GET.urlencode }}&{% endif %}page=1">&laquo; Primeira</a></li>
+                    <li><a href="?{% if request.GET %}{{ request.GET.urlencode }}&{% endif %}page={{ page_obj.previous_page_number }}">Anterior</a></li>
+                {% endif %}
+                <li class="active">
+                    <span>{{ page_obj.number }}</span>
+                </li>
+                {% if page_obj.has_next %}
+                    <li><a href="?{% if request.GET %}{{ request.GET.urlencode }}&{% endif %}page={{ page_obj.next_page_number }}">Próxima</a></li>
+                    <li><a href="?{% if request.GET %}{{ request.GET.urlencode }}&{% endif %}page={{ page_obj.paginator.num_pages }}">Última &raquo;</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Lev Truckcenter. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

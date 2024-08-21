@@ -94,6 +94,8 @@
         <div class="list-cliente">
             <a href="{% url 'certificado_id' id=certificado.id %}">
                 Número: {{ certificado.numero_certificado }} - Data de Validade: {{ certificado.data_validade }} - ID do Instrumento: {{ certificado.instrumento.id }}
+                <p class="mb-1">Cliente: {{ certificado.instrumento.veiculo.cliente.nome }}</p>
+                <p class="mb-1">Veículo: {{ certificado.instrumento.veiculo.placa }} - {{ certificado.instrumento.veiculo.modelo }}</p>
             </a>
             <br>
             <a href="{% url 'editar_certificado' id=certificado.id %}"><i class='bx bxs-edit'></i>Editar Certificado</a>
