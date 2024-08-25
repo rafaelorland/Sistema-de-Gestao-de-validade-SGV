@@ -139,8 +139,8 @@ def painel_cliente(request, id=None):
         else:
             results = Cliente.objects.all()
 
-        if not results.exists():
-            messages.info(request, 'Nenhum cliente encontrado.')
+    if not results.exists():
+        messages.info(request, 'Nenhum cliente encontrado.')
 
     paginator = Paginator(results, 10)
     page_number = request.GET.get('page', 1)

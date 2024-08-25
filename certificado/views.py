@@ -2,7 +2,6 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib import messages
 from certificado.models import Certificado
-from cliente.models import Cliente
 from instrumento.models import Instrumento
 from django.core.paginator import Paginator
 from django.utils import timezone
@@ -15,9 +14,15 @@ def adicionar_certificado(request):
         data_validade = request.POST.get('data_validade')
         instrumento_id = request.POST.get('instrumento')
 
+        # Validação de campos obrigatórios
         if not numero_certificado or not data_validade or not instrumento_id:
             messages.error(request, 'Todos os campos são obrigatórios.')
-            return render(request, 'adicionar_certificado.html', {'instrumentos': Instrumento.objects.all()})
+            return render(request, 'adicionar_certificado.html', {
+                'instrumentos': Instrumento.objects.all(),
+                'numero_certificado': numero_certificado,
+                'data_validade': data_validade,
+                'instrumento_id': instrumento_id
+            })
 
         try:
             instrumento = Instrumento.objects.get(id=instrumento_id)
@@ -28,16 +33,30 @@ def adicionar_certificado(request):
         # Verificar se o instrumento já possui um certificado
         if Certificado.objects.filter(instrumento=instrumento).exists():
             messages.error(request, 'Este instrumento já possui um certificado.')
-            return render(request, 'adicionar_certificado.html', {'instrumentos': Instrumento.objects.all()})
+            return render(request, 'adicionar_certificado.html', {
+                'instrumentos': Instrumento.objects.all(),
+                'numero_certificado': numero_certificado,
+                'data_validade': data_validade,
+                'instrumento_id': instrumento_id
+            })
 
-        certificado = Certificado(
-            instrumento=instrumento,
-            numero_certificado=numero_certificado,
-            data_validade=data_validade
-        )
-        certificado.save()
-        messages.success(request, 'Certificado adicionado com sucesso.')
-        return redirect('painel_certificado')
+        try:
+            certificado = Certificado(
+                instrumento=instrumento,
+                numero_certificado=numero_certificado,
+                data_validade=data_validade
+            )
+            certificado.save()
+            messages.success(request, 'Certificado adicionado com sucesso.')
+            return redirect('painel_certificado')
+        except Exception as e:
+            messages.error(request, f'Ocorreu um erro ao adicionar o certificado: {str(e)}')
+            return render(request, 'adicionar_certificado.html', {
+                'instrumentos': Instrumento.objects.all(),
+                'numero_certificado': numero_certificado,
+                'data_validade': data_validade,
+                'instrumento_id': instrumento_id
+            })
 
     else:
         instrumentos = Instrumento.objects.all()
@@ -54,20 +73,42 @@ def editar_certificado(request, id):
 
         if not numero_certificado or not data_validade or not instrumento_id:
             messages.error(request, 'Todos os campos são obrigatórios.')
-            return render(request, 'editar_certificado.html', {'certificado': certificado, 'instrumentos': Instrumento.objects.all()})
+            return render(request, 'editar_certificado.html', {
+                'certificado': certificado,
+                'instrumentos': Instrumento.objects.all(),
+                'numero_certificado': numero_certificado,
+                'data_validade': data_validade,
+                'instrumento_id': instrumento_id
+            })
 
         try:
             instrumento = Instrumento.objects.get(id=instrumento_id)
         except Instrumento.DoesNotExist:
             messages.error(request, 'Instrumento não encontrado.')
-            return render(request, 'editar_certificado.html', {'certificado': certificado, 'instrumentos': Instrumento.objects.all()})
+            return render(request, 'editar_certificado.html', {
+                'certificado': certificado,
+                'instrumentos': Instrumento.objects.all(),
+                'numero_certificado': numero_certificado,
+                'data_validade': data_validade,
+                'instrumento_id': instrumento_id
+            })
 
-        certificado.instrumento = instrumento
-        certificado.numero_certificado = numero_certificado
-        certificado.data_validade = data_validade
-        certificado.save()
-        messages.success(request, 'Certificado atualizado com sucesso.')
-        return redirect('painel_certificado')
+        try:
+            certificado.instrumento = instrumento
+            certificado.numero_certificado = numero_certificado
+            certificado.data_validade = data_validade
+            certificado.save()
+            messages.success(request, 'Certificado atualizado com sucesso.')
+            return redirect('painel_certificado')
+        except Exception as e:
+            messages.error(request, f'Ocorreu um erro ao atualizar o certificado: {str(e)}')
+            return render(request, 'editar_certificado.html', {
+                'certificado': certificado,
+                'instrumentos': Instrumento.objects.all(),
+                'numero_certificado': numero_certificado,
+                'data_validade': data_validade,
+                'instrumento_id': instrumento_id
+            })
 
     else:
         instrumentos = Instrumento.objects.all()
@@ -77,7 +118,6 @@ def editar_certificado(request, id):
             'instrumentos': instrumentos,
             'data_validade_formato': data_validade_formato
         })
-
 
 @login_required
 def painel_certificado(request, id=None):
@@ -93,11 +133,10 @@ def painel_certificado(request, id=None):
     query = request.GET.get('query', '').strip()
     filter_by = request.GET.get('filter_by', '').strip()
 
-    if not query:
-        results = Certificado.objects.all()
-    else:
+    results = Certificado.objects.all()
+    if query:
         if filter_by == 'Por Número':
-            results = Certificado.objects.filter(numero_certificado__icontains=query)
+            results = results.filter(numero_certificado__icontains=query)
         elif filter_by == 'Por Data de Validade':
             try:
                 results = Certificado.objects.filter(data_validade=query)
@@ -112,10 +151,11 @@ def painel_certificado(request, id=None):
                 results = Certificado.objects.none()
                 messages.error(request, 'ID inválido. Certifique-se de que o ID seja um número inteiro.')
         else:
-            results = Certificado.objects.all()
+            results = Certificado.objects.none()
+            messages.error(request, 'Filtro inválido.')
 
-        if not results.exists():
-            messages.info(request, 'Nenhum certificado encontrado.')
+    if not results.exists():
+        messages.info(request, 'Nenhum certificado encontrado.')
 
     paginator = Paginator(results, 10)
     page_number = request.GET.get('page', 1)

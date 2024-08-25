@@ -7,6 +7,7 @@ from django.views import View
 from certificado.models import Certificado
 from cliente.models import Cliente
 from instrumento.models import Instrumento
+from sgv.CustomUser import CustomUserCreationForm
 from veiculo.models import Veiculo
 from datetime import datetime, timedelta
 from django.contrib.auth.models import User
@@ -89,18 +90,18 @@ class UserCreateView(LoginRequiredMixin, UserPassesTestMixin, View):
     redirect_field_name = 'redirect_to'
 
     def test_func(self):
-        return self.request.user.is_superuser  # Verifica se o usuário é superusuário (admin)
+        return self.request.user.is_superuser
 
     def handle_no_permission(self):
         messages.error(self.request, 'Você não tem permissão para acessar esta página.')
         return redirect('home')
 
     def get(self, request):
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
         return render(request, self.template_name, {'form': form})
 
     def post(self, request):
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, 'Usuário criado com sucesso!')

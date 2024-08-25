@@ -194,28 +194,17 @@
                 {% if user.is_superuser %}
                 <li>
 
-                    <a href="#">
+                    <a href="{% url 'signup' %}">
                         <i class='bx bx-user-check'></i>
-                        <span class="link_name">Usuários e Permissões</span>
+                        <span class="link_name">Usuários</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name" href="#">Gestão de
-                                Usuários</a></li>
+                        <li><a class="link_name" href="{% url 'signup' %}">Criar Usuário</a></li>
                     </ul>
                 </li>
                 {% endif %}
 
-                <li>
-
-                    <a href="#">
-                        <i class='bx bx-cog'></i>
-                        <span class="link_name">Configurações</span>
-                    </a>
-
-                    <ul class="sub-menu blank">
-                        <li><a class="link_name" href="#">Configurações</a></li>
-                    </ul>
-                </li>
+            
                 <li>
 
                     <div class="profile-details">

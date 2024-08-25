@@ -12,7 +12,7 @@ def start_scheduler():
         criar_notificacoes_para_certificados,
         'interval',
         days=1,
-        name='criar_notificacoes_periodicamente',
+        name='criar_notificacao_periodicamente',
         jobstore='default'
     )
 
@@ -21,10 +21,10 @@ def start_scheduler():
         'cron',
         hour=10,
         minute=45,
-        name='verificar_e_enviar_notificacoes',
+        name='verificar_e_enviar_notificacao',
         jobstore='default'
     )
 
     register_events(scheduler)
-    scheduler.start()
+    # scheduler.start()
     print("Scheduler started...")

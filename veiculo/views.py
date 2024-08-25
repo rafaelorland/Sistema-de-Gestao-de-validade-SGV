@@ -119,7 +119,8 @@ def painel_veiculo(request, id=None):
                 messages.error(request, 'ID inválido. Certifique-se de que o ID seja um número inteiro.')
         else:
             results = Veiculo.objects.all()
-            if not results.exists():
+            
+    if not results.exists():
                 messages.info(request, 'Nenhum veículo encontrado.')
 
     paginator = Paginator(results, 10)

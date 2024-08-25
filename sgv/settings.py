@@ -54,10 +54,7 @@ INSTALLED_APPS = [
 # Configuração de agendamento de tarefas
 APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
 APSCHEDULER_RUN_NOW_TIMEOUT = 25
-APSCHEDULER_JOB_DEFAULTS = {
-    'max_instances': 1,
-    'misfire_grace_time': 300,
-}
+
 
 DJANGO_APPSCHEDULER = {
     'JOBSTORES': {
@@ -115,7 +112,10 @@ EMAIL_HOST_PASSWORD = 'zlkh uywq gncs bbiv'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default':{}
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
 
