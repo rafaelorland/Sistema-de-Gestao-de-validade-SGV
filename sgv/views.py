@@ -9,6 +9,7 @@ from cliente.models import Cliente
 from instrumento.models import Instrumento
 from veiculo.models import Veiculo
 from datetime import datetime, timedelta
+from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.forms import UserCreationForm
 

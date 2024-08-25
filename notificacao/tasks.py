@@ -13,39 +13,38 @@ def criar_notificacoes_para_certificados():
     
     certificados = Certificado.objects.all()
     
-    for certificado in certificados:
-        for dias in periodos:
-            data_envio = certificado.data_validade - timedelta(days=dias)
+    # for certificado in certificados:
+    #     for dias in periodos:
+    #         data_envio = certificado.data_validade - timedelta(days=dias)
             
-            # Cria data de envio de notificação se não existir
-            data_envio_notificacao, _ = DataDeEnvioNotificacao.objects.get_or_create(
-                titulo=f"Notificação de {dias} dias",
-                data_envio=data_envio
-            )
+    #         data_envio_notificacao, _ = DataDeEnvioNotificacao.objects.get_or_create(
+    #             titulo=f"Notificação de {dias} dias",
+    #             data_envio=data_envio
+    #         )
             
-            # Cria notificações se não existirem para esse período
-            canais = ['email', 'sms', 'whatsapp']
-            for canal in canais:
-                if not Notificacao.objects.filter(
-                    certificado=certificado,
-                    canal=canal,
-                    data_envio_notificacao=data_envio_notificacao
-                ).exists():
-                    mensagem = None
-                    if canal == 'email':
-                        mensagem = gerar_mensagem_email(certificado, dias)
-                    elif canal == 'sms':
-                        mensagem = gerar_mensagem_sms(certificado, dias)
-                    elif canal == 'whatsapp':
-                        mensagem = gerar_mensagem_whatsapp(certificado, dias)
+    #         # Cria notificações se não existirem para esse período
+    #         canais = ['email', 'sms', 'whatsapp']
+    #         for canal in canais:
+    #             if not Notificacao.objects.filter(
+    #                 certificado=certificado,
+    #                 canal=canal,
+    #                 data_envio_notificacao=data_envio_notificacao
+    #             ).exists():
+    #                 mensagem = None
+    #                 if canal == 'email':
+    #                     mensagem = gerar_mensagem_email(certificado, dias)
+    #                 elif canal == 'sms':
+    #                     mensagem = gerar_mensagem_sms(certificado, dias)
+    #                 elif canal == 'whatsapp':
+    #                     mensagem = gerar_mensagem_whatsapp(certificado, dias)
                     
-                    Notificacao.objects.create(
-                        certificado=certificado,
-                        canal=canal,
-                        data_envio_notificacao=data_envio_notificacao,
-                        mensagem=mensagem,
-                        status='pendente'
-                    )
+    #                 Notificacao.objects.create(
+    #                     certificado=certificado,
+    #                     canal=canal,
+    #                     data_envio_notificacao=data_envio_notificacao,
+    #                     mensagem=mensagem,
+    #                     status='pendente'
+    #                 )
 
 def gerar_mensagem_email(certificado, dias):
     cliente = certificado.instrumento.veiculo.cliente

@@ -16,7 +16,7 @@ class Cliente(models.Model):
 
 
 class TelefoneCliente(models.Model):
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name='telefones', verbose_name="Cliente")
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, verbose_name="Cliente")
     numero = models.CharField(max_length=14, verbose_name="Número de Telefone")
 
     def __str__(self):

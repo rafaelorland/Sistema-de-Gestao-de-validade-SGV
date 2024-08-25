@@ -11,8 +11,8 @@ class TipoInstrumento(models.Model):
 
 
 class Instrumento(models.Model):
-    veiculo = models.ForeignKey(Veiculo, on_delete=models.CASCADE, related_name='instrumentos')
-    tipo_instrumento = models.ForeignKey(TipoInstrumento, on_delete=models.CASCADE, related_name='instrumentos')
+    veiculo = models.ForeignKey(Veiculo, on_delete=models.CASCADE)
+    tipo_instrumento = models.ForeignKey(TipoInstrumento, on_delete=models.CASCADE)
     numero_serie = models.CharField(max_length=255, unique=True)
 
     def __str__(self):

@@ -1,5 +1,5 @@
-from apscheduler.schedulers.background import BackgroundScheduler # type: ignore
-from django_apscheduler.jobstores import DjangoJobStore, register_events # type: ignore
+from apscheduler.schedulers.background import BackgroundScheduler
+from django_apscheduler.jobstores import DjangoJobStore, register_events
 from .tasks import criar_notificacoes_para_certificados, verificar_e_enviar_notificacoes
 
 def start_scheduler():
